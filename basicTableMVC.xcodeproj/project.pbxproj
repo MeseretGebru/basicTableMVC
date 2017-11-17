@@ -8,20 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		0551C4F31FBF4EBE00867E87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C4F21FBF4EBE00867E87 /* AppDelegate.swift */; };
-		0551C4F51FBF4EBE00867E87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C4F41FBF4EBE00867E87 /* ViewController.swift */; };
 		0551C4F81FBF4EBE00867E87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0551C4F61FBF4EBE00867E87 /* Main.storyboard */; };
 		0551C4FA1FBF4EBE00867E87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0551C4F91FBF4EBE00867E87 /* Assets.xcassets */; };
 		0551C4FD1FBF4EBE00867E87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0551C4FB1FBF4EBE00867E87 /* LaunchScreen.storyboard */; };
+		0551C5051FBF4EEC00867E87 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C5041FBF4EEC00867E87 /* TableViewController.swift */; };
+		0551C50A1FBF4FC000867E87 /* TarotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C5091FBF4FC000867E87 /* TarotCard.swift */; };
+		0551C50D1FBF51D900867E87 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C50C1FBF51D900867E87 /* APIRequestManager.swift */; };
+		0551C50F1FBF526000867E87 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C50E1FBF526000867E87 /* Endpoint.swift */; };
+		0551C5111FBF547300867E87 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C5101FBF547300867E87 /* NetworkingError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0551C4EF1FBF4EBE00867E87 /* basicTableMVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = basicTableMVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0551C4F21FBF4EBE00867E87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0551C4F41FBF4EBE00867E87 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0551C4F71FBF4EBE00867E87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0551C4F91FBF4EBE00867E87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0551C4FC1FBF4EBE00867E87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0551C4FE1FBF4EBE00867E87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0551C5041FBF4EEC00867E87 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		0551C5091FBF4FC000867E87 /* TarotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarotCard.swift; sourceTree = "<group>"; };
+		0551C50C1FBF51D900867E87 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
+		0551C50E1FBF526000867E87 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		0551C5101FBF547300867E87 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +62,50 @@
 		0551C4F11FBF4EBE00867E87 /* basicTableMVC */ = {
 			isa = PBXGroup;
 			children = (
+				0551C4FE1FBF4EBE00867E87 /* Info.plist */,
 				0551C4F21FBF4EBE00867E87 /* AppDelegate.swift */,
-				0551C4F41FBF4EBE00867E87 /* ViewController.swift */,
+				0551C5081FBF4F0F00867E87 /* Models */,
+				0551C5071FBF4F0400867E87 /* Views */,
+				0551C5061FBF4EF400867E87 /* Controllers */,
+				0551C50B1FBF51C300867E87 /* Networking */,
+			);
+			path = basicTableMVC;
+			sourceTree = "<group>";
+		};
+		0551C5061FBF4EF400867E87 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0551C5041FBF4EEC00867E87 /* TableViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0551C5071FBF4F0400867E87 /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				0551C4F61FBF4EBE00867E87 /* Main.storyboard */,
 				0551C4F91FBF4EBE00867E87 /* Assets.xcassets */,
 				0551C4FB1FBF4EBE00867E87 /* LaunchScreen.storyboard */,
-				0551C4FE1FBF4EBE00867E87 /* Info.plist */,
 			);
-			path = basicTableMVC;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0551C5081FBF4F0F00867E87 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0551C5091FBF4FC000867E87 /* TarotCard.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0551C50B1FBF51C300867E87 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0551C50C1FBF51D900867E87 /* APIRequestManager.swift */,
+				0551C50E1FBF526000867E87 /* Endpoint.swift */,
+				0551C5101FBF547300867E87 /* NetworkingError.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,8 +180,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0551C4F51FBF4EBE00867E87 /* ViewController.swift in Sources */,
+				0551C50D1FBF51D900867E87 /* APIRequestManager.swift in Sources */,
 				0551C4F31FBF4EBE00867E87 /* AppDelegate.swift in Sources */,
+				0551C5051FBF4EEC00867E87 /* TableViewController.swift in Sources */,
+				0551C50A1FBF4FC000867E87 /* TarotCard.swift in Sources */,
+				0551C5111FBF547300867E87 /* NetworkingError.swift in Sources */,
+				0551C50F1FBF526000867E87 /* Endpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
