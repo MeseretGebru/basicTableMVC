@@ -46,6 +46,8 @@ class TableViewController: UITableViewController {
         cell.detailTextLabel?.text = card.description
         cell.imageView?.image = self.makeCardFace(for: card)
         
+        // We are updating what the user sees on screen here, but we don't explicitly call up a queue on the main thread, as we do inside our API request closure. But we always need to update the UI on the main thread! What gives? All views inherit from UIApplication, and UIApplication is set up on the main thread. Therefore, we are ALREADY on the main thread, by doing our updates inside this method on a view. See https://www.quora.com/Why-must-the-UI-always-be-updated-on-Main-Thread
+        
         return cell
     }
     
@@ -59,55 +61,16 @@ class TableViewController: UITableViewController {
 
 extension TableViewController {
     
-    // This is a big closure that goes to a website, checks the JSON available there, and either tells us about any errors it encountered, or makes us some nice objects for our tableview.
+    // This is what makes our API call
     
     func grabThisMany(cards deckSize: Int) {
         
         for index in 0..<deckSize {
-            let cardURL = "\(Endpoint.get)=\(index)"
+            let cardAddress = "\(Endpoint.get)=\(index)"
             
-            self.networkManager.getData(endPoint: cardURL) { (data: Data?) in
-                if let validData = data {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: validData, options: [])
-                        
-                        guard let results = json as? [String: Any] else {
-                            throw APIError.jsonCastFailed
-                        }
-                        
-                        guard let response = results["response"] as? [String: Any] else {
-                            throw APIError.noCardKeys
-                        }
-                        
-                        if let card = TarotCard(jsonDict: response) {
-                            self.deck.append(card)
-                            print("We made \(card.title)")
-                            print("Our deck has \(self.deck.count) cards")
-                        } else {
-                            throw APIError.couldNotMakeCard(number: index)
-                        }
-                    }
-                        
-                        // Note -- catches are like switch statements in that, we need to account for every possibility or the compiler will complain. That's why we have the three catch blocks for the three  APIError enums AND another catch block for any other kind of error we may encounter. We could set up our throwing functions with only one, very general catch, like the last one, but then we'd have a harder time debugging because we won't get our custom messages about what went wrong.
-                        
-                    catch APIError.jsonCastFailed {
-                        print("We could not cast the JSON to [String : Any]. This could be because we did not get any JSON. It could also be because the JSON is not a dictionary, or not formatted as a dictionary of type [String : Any].")
-                    }
-                        
-                    catch APIError.noCardKeys {
-                        print("We could not find the dictionary containing the card keys. We expected the cards to be inside a dictionary called 'response'. 'Response' should have been of type [String : Any]. If 'response' does not exist, or if 'response' is a dictionary of the wrong type, we cannot access the card keys.")
-                    }
-                        
-                    catch APIError.couldNotMakeCard(let number) {
-                        print("We could not make a card from the data at JSON 'response' index \(number), located at \(cardURL).")
-                    }
-                        
-                    // This catch might trigger if wifi is down or not running very well
-                        
-                    catch {
-                        print("Error of unknown type.")
-                    }
-                }
+            self.networkManager.getData(endPoint: cardAddress) { (data: Data?) in
+                
+                self.grabThisCard(atIndex: index, from: cardAddress, via: data)
                 
                 // This updates the screen so the user can see the cards displayed in the tableview. We always update our UI from the main thread. See https://www.quora.com/Why-must-the-UI-always-be-updated-on-Main-Thread
                 
@@ -116,6 +79,50 @@ extension TableViewController {
                 }
                 
             }
+        }
+    }
+    
+    // This is a big API handler that goes to a website, checks the JSON available there, and either tells us about any errors it encountered, or makes us some nice objects for our tableview.
+    
+    func grabThisCard(atIndex index: Int, from cardAddress: String, via data: Data?) {
+        do {
+            let json = try JSONSerialization.jsonObject(with: data!, options: [])
+            
+            guard let results = json as? [String: Any] else {
+                throw APIError.jsonCastFailed
+            }
+            
+            guard let response = results["response"] as? [String: Any] else {
+                throw APIError.noCardKeys
+            }
+            
+            if let card = TarotCard(jsonDict: response) {
+                self.deck.append(card)
+                print("We made number \(index): \(card.title)")
+                print("Our deck has \(self.deck.count) cards")
+            } else {
+                throw APIError.couldNotMakeCard(number: index)
+            }
+        }
+            
+            // Note -- catches are like switch statements in that, we need to account for every possibility or the compiler will complain. That's why we have the three catch blocks for the three  APIError enums AND another catch block for any other kind of error we may encounter. We could set up our throwing functions with only one, very general catch, like the last one, but then we'd have a harder time debugging because we won't get our custom messages about what went wrong.
+            
+        catch APIError.jsonCastFailed {
+            print("We could not cast the JSON to [String : Any]. This could be because we did not get any JSON. It could also be because the JSON is not a dictionary, or not formatted as a dictionary of type [String : Any].")
+        }
+            
+        catch APIError.noCardKeys {
+            print("We could not find the dictionary containing the card keys. We expected the cards to be inside a dictionary called 'response'. 'Response' should have been of type [String : Any]. If 'response' does not exist, or if 'response' is a dictionary of the wrong type, we cannot access the card keys.")
+        }
+            
+        catch APIError.couldNotMakeCard(let number) {
+            print("We could not make a card from the data at JSON 'response' index \(number), located at \(cardAddress).")
+        }
+            
+            // This catch might trigger if the json comes in incompletely due to connection problems.
+            
+        catch {
+            print("Problem at number \(index).\n\(error.localizedDescription)\nURL: \(cardAddress)\n\(String(describing: dump(data)))")
         }
     }
     

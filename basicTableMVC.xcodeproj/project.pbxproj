@@ -15,7 +15,7 @@
 		0551C50A1FBF4FC000867E87 /* TarotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C5091FBF4FC000867E87 /* TarotCard.swift */; };
 		0551C50D1FBF51D900867E87 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C50C1FBF51D900867E87 /* APIRequestManager.swift */; };
 		0551C50F1FBF526000867E87 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C50E1FBF526000867E87 /* Endpoint.swift */; };
-		0551C5111FBF547300867E87 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C5101FBF547300867E87 /* NetworkingError.swift */; };
+		0551C5111FBF547300867E87 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0551C5101FBF547300867E87 /* APIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		0551C5091FBF4FC000867E87 /* TarotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarotCard.swift; sourceTree = "<group>"; };
 		0551C50C1FBF51D900867E87 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		0551C50E1FBF526000867E87 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		0551C5101FBF547300867E87 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
+		0551C5101FBF547300867E87 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 			children = (
 				0551C50C1FBF51D900867E87 /* APIRequestManager.swift */,
 				0551C50E1FBF526000867E87 /* Endpoint.swift */,
-				0551C5101FBF547300867E87 /* NetworkingError.swift */,
+				0551C5101FBF547300867E87 /* APIError.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -184,7 +184,7 @@
 				0551C4F31FBF4EBE00867E87 /* AppDelegate.swift in Sources */,
 				0551C5051FBF4EEC00867E87 /* TableViewController.swift in Sources */,
 				0551C50A1FBF4FC000867E87 /* TarotCard.swift in Sources */,
-				0551C5111FBF547300867E87 /* NetworkingError.swift in Sources */,
+				0551C5111FBF547300867E87 /* APIError.swift in Sources */,
 				0551C50F1FBF526000867E87 /* Endpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
