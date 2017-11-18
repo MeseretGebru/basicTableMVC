@@ -41,24 +41,4 @@ class TarotCard: Codable {
             
         self.init(title: titleFromJSON, imageAddress: imageFromJSON, description: descriptionFromJSON)
     }
-    
-    func makeCardFace() -> UIImage? {
-        
-        var image: UIImage
-        
-        do {
-            let data: Data? = try Data(contentsOf: self.imageAddress)
-            
-            if let validImage =  UIImage(data: data!) {
-                image = validImage
-                return image
-            }
-        }
-        
-        catch {
-            print("error creating image from \(self.imageAddress)")
-        }
-        
-        return nil
-    }
 }

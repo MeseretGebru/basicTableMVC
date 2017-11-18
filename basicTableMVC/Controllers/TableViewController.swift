@@ -18,7 +18,7 @@ class TableViewController: UITableViewController {
         
         // You learned to set up the APIManager as a singleton, then called a class function on it to make the actual API request. Below is an alternate way, called dependency injection. With a singleton, the manager always exists as soon as the app loads -- we just have to use it. Here, we make an instance of APIRequestManager when we create the view we are using it with, then hand the view controller the manager so it can make the API request.
         
-        //  Using a singleton ensures we never have multiple APIRequestManagers running & causing weird bugs. However, the dependency injection approach makes it easier to debug the view controller -- if there's a problem, we can just plug in another instance of the APIRequestManager class and see how it runs
+        //  Using a singleton ensures we never have multiple APIRequestManagers running & causing weird bugs. However, the dependency injection approach makes it easier to debug the view controller -- if there's a problem, we can just plug in another instance of the APIRequestManager class and see how it runs. Singletons are more difficult to debug because they tend to take over everything...and if one thing breaks, everything else breaks with it
         
         // See https://medium.com/ios-os-x-development/dependency-injection-in-swift-a959c6eee0ab
         
@@ -31,7 +31,6 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -45,12 +44,12 @@ class TableViewController: UITableViewController {
         
         cell.textLabel?.text = card.title
         cell.detailTextLabel?.text = card.description
-        cell.imageView?.image = card.makeCardFace()
+        cell.imageView?.image = self.makeCardFace(for: card)
         
         return cell
     }
     
-    // We don't strictly need this function -- it's only purpose is so all the cells will be the same height
+    // We don't strictly need this function -- it's only purpose is so all the cells will be the same height. If we didn't have this here, the cell's height would be determined by the amount of text inside, and the pictures would come in as all different sizes to fit inside the cell. Try it out for yourself and see.
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0
@@ -89,7 +88,7 @@ extension TableViewController {
                         }
                     }
                         
-                        // Note -- catches are like switch statements in that, we need to account for every possibility or the compiler will complain. That's why we have the three catch blocks for the three  APIError enums AND another catch block for any other kind of error we may encounter. We could set up our throwing functions with only one, very general catch, like the last one below, but then we'll have a harder time debugging because we won't get our custom messages about what went wrong.
+                        // Note -- catches are like switch statements in that, we need to account for every possibility or the compiler will complain. That's why we have the three catch blocks for the three  APIError enums AND another catch block for any other kind of error we may encounter. We could set up our throwing functions with only one, very general catch, like the last one, but then we'd have a harder time debugging because we won't get our custom messages about what went wrong.
                         
                     catch APIError.jsonCastFailed {
                         print("We could not cast the JSON to [String : Any]. This could be because we did not get any JSON. It could also be because the JSON is not a dictionary, or not formatted as a dictionary of type [String : Any].")
@@ -118,5 +117,27 @@ extension TableViewController {
                 
             }
         }
+    }
+    
+    // This is how we get our images for the cells
+    
+    func makeCardFace(for card: TarotCard) -> UIImage? {
+        
+        var image: UIImage
+        
+        do {
+            let data: Data? = try Data(contentsOf: card.imageAddress)
+            
+            if let validImage =  UIImage(data: data!) {
+                image = validImage
+                return image
+            }
+        }
+            
+        catch {
+            print("error creating image from \(card.imageAddress)")
+        }
+        
+        return nil
     }
 }
