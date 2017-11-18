@@ -66,15 +66,15 @@ Errors are also enums. This simplifies writing the do-catch block in the callbac
 
 ### P-list
 
-Because the site the calls are making hits to isn't https, we set up our app to allow arbitrary loads. This isn't great for security, but it is sometimes necessary. You can add this functionality by clicking on the little plus sign and typing into the fields that come up.
+Because the site the calls are making hits to isn't https, we set up our app to allow arbitrary loads. This isn't great for security, but it is sometimes necessary. You can add this functionality by hovering over the Information Property List key, clicking on the little plus sign, and typing into the fields that come up.
 
 ![A screenshot of the p-list, displaying the Allow Arbitrary Loads field][screenshot-7-plist]
 
 ----
 
-This isn't the only way to do things, obviously, or even the best way, but it is the most representative of the various ways I've made API calls to fill up a table. It's hard to be absolutely basic, so even this includes some oddities, like the custom queue. 
+This isn't the only way to do things, obviously, or even, necessarily, the best way, but it is the most representative of the various ways I've made API calls to fill up a table. It's hard to be absolutely basic, so even this includes some oddities, like the custom queue. 
 
-What can I say? APIs are like snowflakes. Every one of them is different. They all present with unique challenges, and the real trick is figuring out what to generalize so you can handle whatever the web devs throw at you.
+What can I say? APIs are like snowflakes. Every one of them is different. They all present with unique challenges, and the real trick is figuring out what to generalize so you can handle whatever the API throws at you.
 
 [link-data-race]: https://stackoverflow.com/a/34550
 [screenshot-1-table]: http://i64.tinypic.com/10nhpi1.png
