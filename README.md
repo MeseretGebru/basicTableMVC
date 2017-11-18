@@ -38,7 +38,9 @@ Views contains our storyboards and the assets folder. We do use the Main storybo
 
 Controllers contains our only controller. It is a UITableViewController, naturally. It contains an extension that holds three methods, which handle our API calls. 
 
-The first method uses our API manager to retrive cards, while the second is a helper method that actually goes in, looks at the JSON, and reports if it encountered an error or made a card. It is the longest method in the project because it has numerous catch blocks.
+Why an extension, rather than putting them right in the class? I think it's more readable. It's also easier to pull the extension out into its own file, so you can look at the bundle and see where the API call methods are happening, rather than digging around through a single lengthy view controller file. 
+
+The first method in our extension uses our API manager to retrive cards, while the second is a helper method that actually goes in, looks at the JSON, and reports if it encountered an error or made a card. It is the longest method in the project because it has numerous catch blocks.
 
 The third method retrieves the card images and does not use our API manager at all. You don't need to use an API manager to do networking -- but having it can simplify complex operations, like deserializing JSON, initializing cards, and adding them to a tableview datasource. The third method is fairly simple in operation, so it doesn't need all that.
 
