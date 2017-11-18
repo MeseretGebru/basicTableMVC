@@ -20,7 +20,9 @@ Well, if you look at the bundle, you've got 4 main groups: Models, Views, Contro
 
 Models contains only one file: a tarot card class. Note that the class inherits from Codable, but it still does the JSON parsing the Swift3 way, to illustrate.
 
-TarotCard comes with a failable convenience initializer that accepts a dictionary of [String : Any]. The three properties on the card class are title, description, and imageAddress. 
+The three properties on the card class are title, description, and imageAddress. 
+
+TarotCard comes with a failable convenience initializer that accepts a dictionary of [String : Any]. If we can't find the right keys or the image field can't be converted to a URL, this init fails and gives us nil.
 
 The card's image is stored in here as a URL, rather than as a String or a UIImage. This ensures that we get a properly formatted URL, while holding off on storing a big graphical file inside the object, which saves a little on memory and on the amount of time it takes to set up the object. We wait until we need the image to be displayed, then we grab it.
 
