@@ -40,7 +40,9 @@ Controllers contains our only controller. It is a UITableViewController, natural
 
 Why an extension, rather than putting them right in the class? I think it's more readable. It's also easier to pull the extension out into its own file, so you can look at the bundle and see where the API call methods are happening, rather than digging around through a single lengthy view controller file. 
 
-The first method in our extension uses our API manager to retrieve cards, while the second is a helper method that actually goes in, looks at the JSON, and reports if it encountered an error or made a card. It is the longest method in the project because it has numerous catch blocks for error handling.
+The first method in our extension uses our API manager to retrieve cards. It is what you would call a wrapper for the API call. Wrappers make code easier to read, because instead of writing out the whole API call inside of viewDidLoad, we just need to type in self.grabThisMany(cards: 23).
+
+The second method in our extension is a method that actually goes in, looks at the JSON, and reports if it encountered an error or made a card. It is the longest method in the project because it has numerous catch blocks for error handling inside the JSON. This is our API manager's callback.
 
 The third method retrieves the card images and does not use our API manager at all. You don't need to use an API manager to do networking -- but having it can simplify complex operations, like deserializing JSON, initializing cards, and adding them to a tableview datasource. The third method is fairly simple in operation, so it doesn't need all that.
 
@@ -52,9 +54,13 @@ The API call for the cards happens in viewDidLoad, whereas the API call for the 
 
 Networking contains the API manager, its endpoint, and an enum we'll use for special API errors.
 
-Instead of a singleton, we make an instance of the manager inside our only view controller, and use that to make API calls. We stash the stuff we get from our API calls inside an array we make inside our view controller. We make a call to get our cards one URL at a time, via a loop. 
+Instead of a singleton, we make an instance of the manager inside our only view controller, and use that to make API calls. We stash the stuff we get from our API calls inside an array we make inside of our view controller. We make a call to get our cards one URL at a time, via a loop. 
 
 Our manager does one weird thing, in that, inside the class definition, you will see a queue that blocks the thread temporarily to ensure we don't have a [data race][link-data-race] as cards come in and get added to the array. The queue is set to fileprivate, meaning it can only be used within the API manager file's scope. Other classes can't use it, and other parts of the app can't call it.
+
+The endpoint is containing in its own file, as a static property on a struct. This is because Strings are inherently messy. If you have something like an endpoint, where it's text but it represents a value that you need to get right to ensure that the app runs correctly, you should store the text inside a struct or an enum. This makes it easier to change later, and also prevents you from making a typo and destroying your app.
+
+Errors are also enums. This simplifies writing the do-catch block in the callback inside our controller.
 
 ![A screenshot of the API manager class in full, including the queue][screenshot-6-networking]
 
