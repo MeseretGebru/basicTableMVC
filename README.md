@@ -58,7 +58,7 @@ Instead of a singleton, we make an instance of the manager inside our only view 
 
 Our manager does one weird thing, in that, inside the class definition, you will see a queue that blocks the thread temporarily to ensure we don't have a [data race][link-data-race] as cards come in and get added to the array. The queue is set to fileprivate, meaning it can only be used within the API manager file's scope. Other classes can't use it, and other parts of the app can't call it.
 
-The endpoint is containing in its own file, as a static property on a struct. This is because Strings are inherently messy. If you have something like an endpoint, where it's text but it represents a value that you need to get right to ensure that the app runs correctly, you should store the text inside a struct or an enum. This makes it easier to change later, and also prevents you from making a typo and destroying your app.
+The endpoint is contained in its own file, as a static property on a struct. This is because Strings are inherently messy. If you have something like an endpoint, where it's text but it represents a value that you need to get right to ensure that the app runs correctly, you should store the text inside a struct or an enum. This makes it easier to change later, and also prevents you from making a typo and destroying your app.
 
 Errors are also enums. This simplifies writing the do-catch block in the callback inside our controller.
 
