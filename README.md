@@ -8,7 +8,7 @@ Most of my projects use tableviews, of course, but they aren't good to use as ex
 
 ![A screenshot of the app, displaying a list of tarot cards and their accompanying card faces, running on an iPhone 5s][screenshot-1-table]
 
-This tableview uses the same server-side Swift API featured in the tarotReader project. It is more or less the same as the tarotReader in terms of the API calls, the only difference being that the cards are presented in table cells instead of UIViews.
+This tableview uses the same server-side Swift API featured in the [tarotReader project][link-tarot-reader]. It is more or less the same as the tarotReader in terms of the API calls, the only difference being that the cards are presented in table cells instead of UIViews.
 
 ## Basic Structure
 
@@ -76,6 +76,7 @@ This isn't the only way to do things, obviously, or even, necessarily, the best 
 
 What can I say? APIs are like snowflakes. Every one of them is different. They all present with unique challenges, and the real trick is figuring out what to generalize so you can handle whatever the API throws at you.
 
+[link-tarot-reader]: https://github.com/martyav/tarotReader
 [link-data-race]: https://stackoverflow.com/a/34550
 [screenshot-1-table]: http://i64.tinypic.com/10nhpi1.png
 [screenshot-2-bundle]: http://i64.tinypic.com/118zpkn.png
